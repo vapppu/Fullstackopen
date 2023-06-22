@@ -1,6 +1,7 @@
-#Osion 0 tehtävät:
+# Osion 0 tehtävät:
 
-##0.4: uusi muistiinpano
+## 0.4: uusi muistiinpano
+
 Luvussa JavaScriptia sisältävän sivun lataaminen - kertaus kuvataan sekvenssikaavion) avulla sivun https://studies.cs.helsinki.fi/exampleapp/notes avaamisen aikaansaama tapahtumasarja.
 
 Kaavio on luotu GitHubiin Markdown-tiedostona hyödyntäen Mermaid-syntaksia.
@@ -15,10 +16,12 @@ Voit tehdä kaaviot millä ohjelmistolla haluat, mutta suositeltava tapa on tehd
 
 Kaikki oleellinen tieto tämän ja seuraavien kahden tehtävän tekemiseen on tässä osassa. Näiden tehtävien ideana on, että luet tekstin vielä kerran ja mietit tarkkaan mitä missäkin tapahtuu. Ohjelman koodin lukemista ei näissä tehtävissä edellytetä, vaikka sekin on toki mahdollista.
 
-##0.5: Single Page App
+## 0.5: Single Page App
+
 Tee kaavio tilanteesta, jossa käyttäjä menee selaimella osoitteeseen https://studies.cs.helsinki.fi/exampleapp/spa eli muistiinpanojen Single Page App-versioon
 
-##0.6: Uusi muistiinpano
+## 0.6: Uusi muistiinpano
+
 Tee kaavio tilanteesta, jossa käyttäjä luo uuden muistiinpanon single page ‑versiossa.
 
 Tämä oli osan viimeinen tehtävä ja on aika pushata vastaukset GitHubiin sekä merkata tehdyt tehtävät palautussovellukseen.
