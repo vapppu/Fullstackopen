@@ -68,7 +68,6 @@ const App = () => {
     setState(newState)
   }
 
-
   return (
     <div>
       <h2>Give feedback</h2>
