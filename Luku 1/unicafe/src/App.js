@@ -35,12 +35,14 @@ const Statistics = ({good, neutral, bad}) => {
     <div>
       <h2>Statistics</h2>
       <table>
+        <tbody>
         <StatisticLine text="good" value={good}/>
         <StatisticLine text="neutral" value={neutral}/>
         <StatisticLine text="bad" value={bad}/>
         <StatisticLine text="total" value={total}/>
         <StatisticLine text="average" value={countAverage()}/>
         <StatisticLine text="positive" value={countPositive().toString() + " %"}/>
+        </tbody>
       </table>
     </div>
   )
