@@ -9,6 +9,28 @@ const Button = ({onHandle, text}) => {
   )
 }
 
+const Statistics = ({good, neutral, bad, total}) => {
+
+  const countAverage = () => {
+    if (total > 0)
+      return (((good - bad) / total))
+  }
+
+  const countPositive = () => {
+    if (total > 0)
+      return ((good / total) * 100)
+  }
+
+  return (
+    <div>
+      <h2>Statistics</h2>
+      <p>good {good}<br/>neutral {neutral}<br/>bad {bad}</p>
+      <p>total: {total}<br/>average: {countAverage()}<br/>
+      positive: {countPositive()} %</p>
+    </div>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -23,27 +45,14 @@ const App = () => {
     setState(newState)
   }
 
-  const countAverage = () => {
-    if (total > 0)
-      return (((good - bad) / total))
-  }
-
-  const countPositive = () => {
-    if (total > 0)
-      return ((good / total) * 100)
-  }
 
   return (
     <div>
-      <h2>give feedback</h2>
+      <h2>Give feedback</h2>
       <Button onHandle={() => increase(good, setGood)} text="good" />
       <Button onHandle={() => increase(neutral, setNeutral)} text="neutral" />
       <Button onHandle={() => increase(bad, setBad)} text="bad" />
-      <h2>statistics</h2>
-      <p>good {good}<br/>neutral {neutral}<br/>bad {bad}</p>
-      <p>total: {total}<br/>average: {countAverage()}</p>
-      <p>positive: {countPositive()} %</p>
-
+      <Statistics good={good} neutral={neutral} bad={bad} total={total}/>
     </div>
   )
 }
