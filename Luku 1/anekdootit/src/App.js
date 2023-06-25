@@ -35,12 +35,25 @@ const App = () => {
     console.log(pointsCopy)
   }
 
+  const maxVotes = (Math.max(...points))
+  
+  const anecdoteWithMaxVotes = () => {
+    return anecdotes[points.indexOf(maxVotes)]
+
+  }
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <p>has {points[selected]} votes</p>
       <button onClick={voteSelected}>vote</button>
       <button onClick={nextAnecdote}>next anecdote</button>
+      
+      <h2>Anecdote with most votes</h2>
+      {anecdoteWithMaxVotes()}
+      <p>has {maxVotes} votes</p>
+
     </div>
   )
 }
