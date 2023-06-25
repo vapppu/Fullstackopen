@@ -1,5 +1,33 @@
 import { useState } from 'react'
-import './App.css'
+
+const Button = ({ handleClick, text}) => {
+  return (
+    <button onClick = {handleClick}>{text}</button>
+  )
+}
+
+const DisplayVotes = ({ votes }) => {
+  return (
+    <p>has {votes} votes</p>
+  )
+}
+
+const Anecdote = ({ text }) => {
+  return ( 
+    <p>{text}</p>
+  )
+}
+
+const MostVotedAnecdote = ({ anecdote, votes }) => {
+  if (votes === 0)
+    return <div>No votes have been given yet.</div>
+  return (
+    <div>
+      <Anecdote text={anecdote}/>
+      <DisplayVotes votes={votes} />
+    </div>
+  )
+}
 
 const App = () => {
   const anecdotes = [
@@ -18,21 +46,19 @@ const App = () => {
     const max = Math.floor(anecdotes.length)
     return(Math.floor(Math.random() * (max - min) + min)) 
   }
-   
+
   const [selected, setSelected] = useState(random())
 
+  const [points, setPoints] = useState(new Uint8Array(anecdotes.length))
+   
   const nextAnecdote = () => {
     setSelected(random())
   }
-
-  const [points, setPoints] = useState(new Uint8Array(anecdotes.length))
 
   const voteSelected = () => {
     const pointsCopy = [...points]
     pointsCopy[selected] += 1
     setPoints(pointsCopy)
-    console.log(selected)
-    console.log(pointsCopy)
   }
 
   const maxVotes = (Math.max(...points))
@@ -44,15 +70,16 @@ const App = () => {
 
   return (
     <div>
-      <h1>Anecdote of the day</h1>
-      {anecdotes[selected]}
-      <p>has {points[selected]} votes</p>
-      <button onClick={voteSelected}>vote</button>
-      <button onClick={nextAnecdote}>next anecdote</button>
       
+      <h1>Anecdote of the day</h1>
+      <Anecdote text = {anecdotes[selected]} />
+      <DisplayVotes votes={points[selected]} />
+
+      <Button handleClick={voteSelected} text="vote"/>
+      <Button handleClick={nextAnecdote} text="next anecdote"/>
+
       <h2>Anecdote with most votes</h2>
-      {anecdoteWithMaxVotes()}
-      <p>has {maxVotes} votes</p>
+      <MostVotedAnecdote anecdote = {anecdoteWithMaxVotes()} votes = {maxVotes}/>
 
     </div>
   )
