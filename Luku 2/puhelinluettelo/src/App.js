@@ -9,25 +9,35 @@ const Filter = (props) => {
   )
 }
 
-// const PersonForm = (props) => {
+const PersonForm = (props) => {
 
+  return (
+    <div>
+      <form onSubmit={props.add}>
+        <div>
+          name: <input value={props.newName} onChange={props.nameAction} />
+          <br />
+          number: <input value={props.newNumber} onChange={props.numberAction} />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+    </div>
+  )
+  }
 
-
-//   return (
-//     <div>
-//       <form onSubmit={props.action}>
-//         <div>
-//           name: <input value={newName} onChange={handleNameChange} />
-//           <br />
-//           number: <input value={newNumber} onChange={handleNumberChange} />
-//         </div>
-//         <div>
-//           <button type="submit">add</button>
-//         </div>
-//       </form>
-//     </div>
-//   )
-// }
+const Persons = (props) => {
+  return (
+    <ul style={{ listStyle: "none" }}>
+    {props.personsToShow.map((person) => (
+      <li key={person.name}>
+        {person.name}: {person.number}
+      </li>
+    ))}
+  </ul>
+  )
+}
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
@@ -51,9 +61,10 @@ const App = () => {
     const updatedPersons = persons.concat(newPerson);
     setPersons(updatedPersons);
     setPersonsToShow(updatedPersons);
-    setNewName("");
     setNewNumber("");
+    setNewName("");
     setSearchTerm("");
+
   };
 
   const handleNameChange = (event) => {
@@ -78,28 +89,16 @@ const App = () => {
   };
   return (
     <div>
+
       <h1>Phonebook</h1>
-      <Filter text="filter shown with " searchTerm = {searchTerm} />
-      <h2>add a new</h2>
-      {/* <PersonForm action={addPerson}  /> */}
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-          <br />
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Filter text="filter shown with " searchTerm = {searchTerm} action = {handleSearchTermChange}/>
+
+      <h2>Add a new</h2>
+      <PersonForm add={addPerson} newName={newName} nameAction={handleNameChange} newNumber={newNumber} numberAction={handleNumberChange}  />
+
       <h2>Numbers</h2>
-      <ul style={{ listStyle: "none" }}>
-        {personsToShow.map((person) => (
-          <li key={person.name}>
-            {person.name}: {person.number}
-          </li>
-        ))}
-      </ul>
+      <Persons personList = {persons} personsToShow = {personsToShow} />
+
     </div>
   );
 };
