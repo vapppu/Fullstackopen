@@ -2,9 +2,10 @@ import { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
-
+  const [personsToShow, setPersonsToShow] = useState(persons)
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -17,9 +18,13 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
       return;
     }
-    setPersons(persons.concat(newPerson));
+
+    const updatedPersons = persons.concat(newPerson);
+    setPersons(updatedPersons);
+    setPersonsToShow(updatedPersons)
     setNewName("");
     setNewNumber("");
+    setSearchTerm("");
   };
 
   const handleNameChange = (event) => {
@@ -30,9 +35,21 @@ const App = () => {
     setNewNumber(event.target.value);
   };
 
+  const handleSearchTermChange = (event) => {
+    const searchString = event.target.value
+    setSearchTerm(searchString)
+    filterPersons(searchString)
+  }
+
+  const filterPersons = (string) => {
+    const filteredList = (persons.filter(person => person.name.toLowerCase().includes(string.toLowerCase())))
+    setPersonsToShow(filteredList)
+  }
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      filter shown with <input value={searchTerm} onChange={handleSearchTermChange}/>
+      <h2>add a new</h2>
       <form onSubmit={addPerson}>
         <div>
           name: <input value={newName}  onChange={handleNameChange} /><br/>
@@ -44,12 +61,13 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul style= {{ listStyle:"none"}} >
-        {persons.map((person) => (
+        {personsToShow.map((person) => (
           <li key={person.name}>{person.name}: {person.number}</li>
         ))}
       </ul>
     </div>
   );
 };
+
 
 export default App;
