@@ -13,9 +13,7 @@ const Course = ({ course }) => {
 const Header = (props) => {
   console.log(props);
   return (
-    <div>
       <h1>{props.course}</h1>
-    </div>
   );
 };
 
@@ -31,11 +29,9 @@ const Content = ({parts}) => {
 const Part = ({part}) => {
   console.log(part);
   return (
-    <div>
       <li>
         {part.name} {part.exercises}
       </li>
-    </div>
   );
 };
 
@@ -46,9 +42,7 @@ const Total = (props) => {
     sum += part.exercises;
   }
   return (
-    <div>
-      <p>{sum}</p>
-    </div>
+      <p><strong>total of {sum} exercises</strong></p>
   );
 };
 
@@ -81,9 +75,7 @@ const App = () => {
   };
 
   return (
-    <div>
       <Course course={course} />
-    </div>
   );
 };
 
