@@ -1,49 +1,47 @@
 // import Course from './components/Course'
 
-const Course = ({course}) => {
-
+const Course = ({ course }) => {
   return (
-      <div>     
-        <Header course = {course.name} />
-        <Content parts = {course.parts}/>
-        <Total course = {course} />
-      </div>
-  )
-}
-
+    <div>
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total course={course} />
+    </div>
+  );
+};
 
 const Header = (props) => {
-  console.log(props)
+  console.log(props);
   return (
     <div>
       <h1>{props.course}</h1>
     </div>
-  )
+  );
 };
 
-const Content = (props) => {
-  console.log(props)
+const Content = ({parts}) => {
+  console.log(parts);
   return (
-    <div>
-      <Part part = {props.parts[0]} />
-      <Part part = {props.parts[1]} />
-      <Part part = {props.parts[2]} />
-    </div>
-  )
-}
+    <ul>
+      {parts.map(part => <Part part = {part} key={part.id}/>)}
+    </ul>
+  );
+};
 
-const Part = (props) => {
-  console.log(props)
+const Part = ({part}) => {
+  console.log(part);
   return (
     <div>
-      <p>{props.part.name} {props.part.exercises}</p>
+      <li>
+        {part.name} {part.exercises}
+      </li>
     </div>
-  )
-}
+  );
+};
 
 const Total = (props) => {
-  console.log(props)
-  let sum = 0
+  console.log(props);
+  let sum = 0;
   for (let part of props.course.parts) {
     sum += part.exercises;
   }
@@ -51,34 +49,42 @@ const Total = (props) => {
     <div>
       <p>{sum}</p>
     </div>
-  )
-}
+  );
+};
 
 const App = () => {
-
   const course = {
     name: 'Half Stack application development',
+    id: 1,
     parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 10
+        exercises: 10,
+        id: 1
       },
       {
         name: 'Using props to pass data',
-        exercises: 7
+        exercises: 7,
+        id: 2
       },
       {
         name: 'State of a component',
-        exercises: 14
+        exercises: 14,
+        id: 3
+      },
+      {
+        name: 'Testikurssi',
+        exercises: 500,
+        id: 4
       }
     ]
-  }
+  };
 
   return (
     <div>
-      <Course course= {course}/>
+      <Course course={course} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
