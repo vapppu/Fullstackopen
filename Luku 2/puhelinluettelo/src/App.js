@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import numberService from "./services/numbers";
+
 
 const Filter = (props) => {
   return (
@@ -14,11 +15,11 @@ const PersonForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={props.add}>
+      <form onSubmit={props.addPerson}>
         <div>
-          name: <input value={props.newName} onChange={props.nameAction} />
+          name: <input value={props.newName} onChange={props.addName} />
           <br />
-          number: <input value={props.newNumber} onChange={props.numberAction} />
+          number: <input value={props.newNumber} onChange={props.addNumber} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -48,18 +49,17 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const hook = () => {
-    console.log('effect');
-    axios
-      .get("http://localhost:3001/persons")
-      .then((response) => {
-        console.log("promise fulfilled");
-        setPersons(response.data)
+  useEffect(() => {
+    numberService
+      .getAll()
+      .then(initialNumbers => {
+        setPersons(initialNumbers)
+        setPersonsToShow(initialNumbers)
       })
-  }
-
-  useEffect(hook, [])
+  }, [])
+  
   console.log('render', persons.length, 'persons')
+
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -73,13 +73,15 @@ const App = () => {
       return;
     }
 
-    const updatedPersons = persons.concat(newPerson);
-    setPersons(updatedPersons);
-    setPersonsToShow(updatedPersons);
-    setNewNumber("");
-    setNewName("");
-    setSearchTerm("");
-
+    numberService
+      .create(newPerson)
+      .then(returnedPerson => {
+        const newPersons = persons.concat(returnedPerson)
+        setPersons(newPersons)
+        setPersonsToShow(newPersons)
+        setNewNumber("");
+        setNewName("");
+        setSearchTerm("");      })
   };
 
   const handleNameChange = (event) => {
@@ -102,6 +104,8 @@ const App = () => {
     );
     setPersonsToShow(filteredList);
   };
+
+
   return (
     <div>
 
@@ -109,7 +113,7 @@ const App = () => {
       <Filter text="filter shown with " searchTerm = {searchTerm} action = {handleSearchTermChange}/>
 
       <h2>Add a new</h2>
-      <PersonForm add={addPerson} newName={newName} nameAction={handleNameChange} newNumber={newNumber} numberAction={handleNumberChange}  />
+      <PersonForm addPerson={addPerson} newName={newName} addName={handleNameChange} newNumber={newNumber} addNumber={handleNumberChange}  />
 
       <h2>Numbers</h2>
       <Persons personList = {persons} personsToShow = {personsToShow} />
