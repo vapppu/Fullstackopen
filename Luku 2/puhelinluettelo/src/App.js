@@ -30,11 +30,13 @@ const PersonForm = (props) => {
   }
 
 const Persons = (props) => {
+
   return (
     <ul style={{ listStyle: "none" }}>
     {props.personsToShow.map((person) => (
       <li key={person.name}>
         {person.name}: {person.number}
+        <button onClick = {() => {props.removePerson(person)}}>Delete</button>
       </li>
     ))}
   </ul>
@@ -81,7 +83,9 @@ const App = () => {
         setPersonsToShow(newPersons)
         setNewNumber("");
         setNewName("");
-        setSearchTerm("");      })
+        setSearchTerm("");      
+        console.log(`${returnedPerson.id}: ${returnedPerson.name} added to list`)
+      })
   };
 
   const handleNameChange = (event) => {
@@ -105,6 +109,23 @@ const App = () => {
     setPersonsToShow(filteredList);
   };
 
+  const removePerson = (person) => {
+
+    if (window.confirm(`Delete ${person.name}?`)) 
+    {
+    console.log(`Deleting person: ${person.id} ${person.name}`)
+    numberService
+    .remove(person.id)
+    .then(() => {
+      const newPersons = persons.filter((personOnList) => person.id !== personOnList.id)
+      setPersons(newPersons)
+      setPersonsToShow(newPersons)
+      console.log(`Person ${person.id}: ${person.name} deleted`)  
+    })
+    
+    }
+     
+  }
 
   return (
     <div>
@@ -116,7 +137,7 @@ const App = () => {
       <PersonForm addPerson={addPerson} newName={newName} addName={handleNameChange} newNumber={newNumber} addNumber={handleNumberChange}  />
 
       <h2>Numbers</h2>
-      <Persons personList = {persons} personsToShow = {personsToShow} />
+      <Persons personList = {persons} personsToShow = {personsToShow} removePerson = {removePerson}/>
 
     </div>
   );
