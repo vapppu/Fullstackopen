@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SearchBox from "./components/SearchBox";
+import Countries from "./components/Countries";
+import Country from "./components/Country";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +26,6 @@ const App = () => {
     console.log(`Filtering results with ${userInput}`);
   };
 
-
   useEffect(() => {
     const term = searchTerm;
     console.log(term);
@@ -41,7 +43,10 @@ const App = () => {
     setCountriesToShow(filteredCountries);
   }, [searchTerm]);
 
-
+    const showCountry = (country) => {
+      console.log(`Showing country ${country}`)
+        setCountryToShow(country)
+      }
 
   return (
     <div>
@@ -49,69 +54,12 @@ const App = () => {
 
       <SearchBox inputChanged={handleInputChange} />
 
-      <Countries countriesToShow={countriesToShow} term={searchTerm} />
+      <Countries countriesToShow={countriesToShow} countryToShow = {countryToShow} term={searchTerm} showCountry = {showCountry}/>
 
-      <Country country={countryToShow} />
+      <Country country = {countryToShow} />
 
     </div>
   );
-};
-
-const SearchBox = (props) => {
-  return (
-    <div>
-      find countries: 
-      <input onChange={props.inputChanged} value={props.searchTerm}></input>
-    </div>
-  );
-};
-
-const Countries = ({ countriesToShow, term }) => {
-  const number = countriesToShow.length;
-  console.log(`amount is ${number}`);
-
-  if (number === 1) return;
-
-  if (number <= 10) {
-    return (
-      <div>
-        {countriesToShow.sort().map((result) => (
-          <div key={result.name.common}>{result.name.common}</div>
-        ))}
-      </div>
-    );
-  }
-  if (term.length > 0) {
-    return <div>{number} results. Give more specific search term!</div>;
-  }
-
-  return;
-};
-
-const Country = ({ country }) => {
-  if (country) {
-    const languages = Object.values(country.languages);
-    console.log(languages);
-
-    return (
-      <div className="found">
-        <h2>{country.name.common}</h2>
-        <p>
-          Capital: {country.capital[0]}<br/>
-          Area: {country.area}
-        </p>
-        <h3>Languages:</h3>
-        <ul>
-          {languages.map((language) => (
-            <li>{language}</li>
-          ))}
-        </ul>
-        <figure className="flag">
-          <img src={country.flags.png} alt={country.flags.alt}></img>
-        </figure>
-      </div>
-    );
-  }
 };
 
 export default App;
