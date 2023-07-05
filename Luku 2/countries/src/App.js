@@ -21,27 +21,29 @@ const App = () => {
   }, []);
 
   const handleInputChange = (event) => {
-    const userInput = event.target.value;
-    setSearchTerm(userInput);
-    console.log(`Filtering results with ${userInput}`);
-  };
 
-  useEffect(() => {
-    const term = searchTerm;
-    console.log(term);
+    const userInput = event.target.value;
+
+    setSearchTerm(userInput);
+
+    console.log(`Filtering results with ${userInput}`);
 
     const filteredCountries = countries.filter((country) =>
-      country.name.common.toLowerCase().includes(term.toLowerCase())
+      country.name.common.toLowerCase().includes(userInput.toLowerCase())
     );
+
     console.log(filteredCountries);
+
     if (filteredCountries.length === 1) {
-      console.log(`ONE SINGLE COUNTRY FOUND!`);
+      console.log(`One country found, rendering data`);
       setCountryToShow(filteredCountries[0]);
     } else {
       setCountryToShow(null);
     }
+
     setCountriesToShow(filteredCountries);
-  }, [searchTerm]);
+
+  };
 
     const showCountry = (country) => {
       console.log(`Showing country ${country}`)
