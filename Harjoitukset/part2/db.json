@@ -3,7 +3,7 @@
     {
       "id": 1,
       "content": "HTML is easy",
-      "important": true
+      "important": false
     },
     {
       "id": 2,
@@ -32,8 +32,13 @@
     },
     {
       "content": "kirahvin kaula on pitkähkö",
-      "important": true,
+      "important": false,
       "id": 7
+    },
+    {
+      "content": "sfdafg",
+      "important": false,
+      "id": 8
     }
   ]
 }

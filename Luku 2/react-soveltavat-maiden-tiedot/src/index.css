@@ -1,0 +1,38 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  background-color: beige;
+}
+
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+.country > ul,
+.weather > ul {
+  list-style: none;
+  padding: 0;
+}
+.country h3 {
+  font-size: inherit;
+}
+.country img,
+.country figure {
+  display: block;
+  max-width: 100%;
+}
+figure {
+  margin: 1rem 0 0 0;
+  margin-block-end: 1rem;
+}
+.weather {
+  margin-block-start: 4rem;
+}
