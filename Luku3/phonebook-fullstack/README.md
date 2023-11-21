@@ -1,3 +1,8 @@
-# react-soveltavat-07-puhelinluettelo-backend
+# react-soveltavat-08-puhelinluettelo-fullstack
 
-Backend-serveri puhelinluettelolle (Full Stack Open, luku 3a)
+Previously created frontend and backend now combined into a full stack app, to be hosted online.
+
+Backend:
+
+API: https://vapppu-puhelinluettelo-fullstack.onrender.com/api/persons
+Info: https://vapppu-puhelinluettelo-fullstack.onrender.com/info
